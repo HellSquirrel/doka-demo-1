@@ -1,4 +1,4 @@
-const dropFileZone = document.querySelector(".form-upload__label")!;
+const dropFileZone = document.querySelector(".upload-zone_dragover")!;
 const sizeText = document.getElementById("uploadForm_Size")!;
 const statusText = document.getElementById("uploadForm_Status")!;
 const progressBar = document.getElementById(
@@ -15,15 +15,15 @@ const uploadUrl = "/unicorns";
 });
 
 dropFileZone.addEventListener("dragenter", function () {
-  dropFileZone.classList.add("upload-zone_gragover");
+  dropFileZone.classList.add("_active");
 });
 
 dropFileZone.addEventListener("dragleave", function () {
-  dropFileZone.classList.remove("upload-zone_gragover");
+  dropFileZone.classList.remove("_active");
 });
 
 dropFileZone.addEventListener("drop", function (event) {
-  dropFileZone.classList.remove("upload-zone_gragover");
+  dropFileZone.classList.remove("_active");
   // @ts-ignore
   const file = event.dataTransfer?.files[0];
   if (!file) {
