@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <div id="app">
+      <form
+        class="form-upload"
+        id="uploadForm"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <label class="form-upload__label" for="uploadForm_file">
+          <div id="form-upload__loader" class="form-upload__loader">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 100 100"
+              class="upload-loader__image"
+            >
+              <path
+                fill="#fff"
+                d="M73 50c0-12.7-10.3-23-23-23S27 37.3 27 50m3.9 0c0-10.5 8.5-19.1 19.1-19.1S69.1 39.5 69.1 50"
+              >
+                <animateTransform
+                  attributeName="transform"
+                  attributeType="XML"
+                  type="rotate"
+                  dur="1s"
+                  from="0 50 50"
+                  to="360 50 50"
+                  repeatCount="indefinite"
+                />
+              </path>
+            </svg>
+          </div>
+          <span class="form-upload__title">Изображение:</span>
+          <input
+            class="form-upload__input"
+            id="uploadForm_File"
+            type="file"
+            name="file_name"
+            accept="image/*"
+          />
+        </label>
+        <input
+          class="form-upload__submit form-upload__submit_purple"
+          id="uploadForm_Submit"
+          type="submit"
+          value="Загрузить файл"
+        />
+        <progress id="progressBar" value="0" max="100"></progress>
+        <div class="form-upload__container">
+          <span class="form-upload__status" id="uploadForm_Status"></span>
+          <span class="form-upload__hint" id="uploadForm_Hint"></span>
+          <span id="uploadForm_Size"></span>
+        </div>
+      </form>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

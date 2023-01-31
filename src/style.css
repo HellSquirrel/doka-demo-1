@@ -1,0 +1,170 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.upload-zone_gragover {
+  border: 2px dashed #ffffff;
+  border-radius: 5px;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 50px;
+  color: #ffffff;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  background-color: #18191c;
+}
+
+.form-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.form-upload__label {
+  display: flex;
+  align-items: center;
+}
+
+.form-upload__title {
+  max-width: 200px;
+  margin-right: 55px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.form-upload__input {
+  font-size: 18px;
+  font-weight: 300;
+  font-family: inherit;
+}
+
+.form-upload__input::file-selector-button {
+  min-width: 190px;
+  margin-right: 30px;
+  padding: 9px 15px;
+  border: none;
+  border-radius: 6px;
+  font-weight: inherit;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+#uploadForm_File {
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+#uploadForm_File,
+.form-upload__submit,
+progress,
+.form-upload__container {
+  width: 360px;
+}
+
+.form-upload__submit {
+  display: block;
+  margin-top: 25px;
+  padding: 9px 15px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 300;
+  font-family: inherit;
+  transition: background-color 0.2s linear;
+}
+
+.form-upload__submit:hover {
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s linear;
+}
+
+.form-upload__submit:focus-visible {
+  border: 2px solid #ffffff;
+  outline: none;
+}
+
+.form-upload__submit:focus {
+  border: 2px solid #ffffff;
+  outline: none;
+}
+
+.form-upload__submit_purple {
+  background-color: #c56fff;
+}
+
+progress {
+  height: 5px;
+  margin-top: 25px;
+  border: none;
+  background-color: #286c2d;
+}
+
+progress::-webkit-progress-bar {
+  border: none;
+  background-color: #286c2d;
+}
+
+progress::-webkit-progress-value {
+  background-color: #41e847;
+}
+
+progress::-moz-progress-bar {
+  border: none;
+  background-color: #41e847;
+}
+
+.form-upload__container {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.form-upload__status:empty::before {
+  content: "Не загружено";
+}
+
+.form-upload__status:empty + span {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 30px;
+  }
+
+  .form-upload__label {
+    display: block;
+    height: 300px;
+  }
+
+  .form-upload__title {
+    display: block;
+    max-width: initial;
+    margin-right: 0;
+    margin-bottom: 25px;
+  }
+
+  #uploadForm_File,
+  .form-upload__submit,
+  progress,
+  .form-upload__container {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .form-upload__input::file-selector-button {
+    min-width: initial;
+    margin-right: 10px;
+  }
+}
