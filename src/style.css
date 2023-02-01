@@ -33,7 +33,7 @@ body {
   height: 50vh;
   min-height: 360px;
   margin-bottom: 25px;
-  border: 2px dashed currentColor;
+  border: 1px solid currentColor;
   border-radius: 5px;
   color: #ffffff;
   font-weight: 600;
@@ -104,7 +104,7 @@ body {
 }
 
 .form-upload__progress::-webkit-progress-value {
-  background-image: #41e847;
+  background-color: #41e847;
 }
 
 .form-upload__progress::-moz-progress-bar {
