@@ -17,10 +17,11 @@
           <path d="m16 16-4-4-4 4"/>
         </svg>        
         <p>Перетащи файл сюда</p>
+        <span class="form-upload__hint" id="hint">Можно загружать только картинки</span>
       </div>
         <label class="form-upload__label" for="uploadForm_file">
           <span class="form-upload__title">Или нажми кнопку</span>
-          <input class="form-upload__input" id="uploadForm_File" type="file" name="file_name" accept="image/*">
+          <input class="form-upload__input" id="uploadForm_File" type="file" name="file_name" accept="image/*" aria-describedby="#hint">
         </label>
         <progress id="progressBar" class="form-upload__progress" value="0" max="100"></progress>
         <div class="form-upload__container">

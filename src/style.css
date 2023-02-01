@@ -38,12 +38,20 @@ body {
   color: #ffffff;
   font-weight: 600;
   place-content: center;
+  text-align: center;
 }
 
 .upload-zone_dragover svg {
   width: 10vw;
   margin: auto;
   pointer-events: none;
+}
+
+.form-upload__hint {
+  margin-top: 10px;
+  font-size: 0.8em;
+  font-weight: 400;
+  font-style: italic;
 }
 
 .upload-zone_dragover._active {
