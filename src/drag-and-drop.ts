@@ -1,9 +1,19 @@
-const dropFileZone = document.querySelector(".upload-zone_dragover")!;
+const dropFileZone = document.querySelector(
+  ".upload-zone_dragover"
+) as HTMLElement;
+const statusText = document.querySelector("#uploadForm_Status") as HTMLElement;
 const sizeText = document.getElementById("uploadForm_Size")!;
-const statusText = document.getElementById("uploadForm_Status")!;
 const progressBar = document.getElementById(
   "progressBar"
 ) as HTMLProgressElement;
+
+const uploadInput = document.querySelector(
+  ".form-upload__input"
+) as HTMLInputElement;
+
+const setStatus = (statusText: string, statusContainer: HTMLElement) => {
+  statusContainer.textContent = statusText;
+};
 
 const uploadUrl = "/unicorns";
 
@@ -22,7 +32,7 @@ dropFileZone.addEventListener("dragleave", function () {
   dropFileZone.classList.remove("_active");
 });
 
-dropFileZone.addEventListener("drop", function (event) {
+dropFileZone.addEventListener("drop", function (event: DragEvent) {
   dropFileZone.classList.remove("_active");
   // @ts-ignore
   const file = event.dataTransfer?.files[0];
@@ -31,9 +41,20 @@ dropFileZone.addEventListener("drop", function (event) {
   }
 
   if (file.type.startsWith("image/")) {
+    uploadInput.files = event.dataTransfer.files;
     processingUploadFile(file, sizeText, statusText, progressBar);
   } else {
-    alert("Можно загружать только изображения");
+    setStatus("Можно загружать только изображения", statusText);
+    return false;
+  }
+});
+
+uploadInput.addEventListener("change", (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0];
+  if (file && file.type.startsWith("image/")) {
+    processingUploadFile(file, sizeText, statusText, progressBar);
+  } else {
+    setStatus("Можно загружать только изображения", statusText);
     return false;
   }
 });
@@ -41,7 +62,7 @@ dropFileZone.addEventListener("drop", function (event) {
 export function processingUploadFile(
   file: File,
   sizeText: Element,
-  statusText: Element,
+  statusText: HTMLElement,
   progressBar: HTMLProgressElement
 ) {
   if (file) {
@@ -55,7 +76,7 @@ export function processingUploadFile(
 
       progressBar.value = percentLoaded;
       sizeText.textContent = `${event.loaded} из ${event.total} МБ`;
-      statusText.textContent = `Загружено ${percentLoaded}% | `;
+      setStatus(`Загружено ${percentLoaded}% | `, statusText);
     });
 
     xhr.open("POST", uploadUrl, true);
@@ -64,54 +85,42 @@ export function processingUploadFile(
 
     xhr.onload = function () {
       if (xhr.status == 200) {
-        statusText.textContent = `Все загружено`;
+        setStatus("Все загружено", statusText);
       } else {
-        statusText.textContent = `Ошибка загрузки`;
+        setStatus("Oшибка загрузки", statusText);
       }
       (sizeText as HTMLDivElement).style.display = "none";
-
-
     };
   }
 }
 
-export function processingUploadFileWithFetch(file: File) {
-  if (file) {
-    const dropZoneData = new FormData();
-
-    dropZoneData.append("file", file);
-
-    fetch(uploadUrl, {
-      method: "POST",
-    }).then(async (res) => {
-      const reader = res?.body?.getReader();
-      while (true && reader) {
-        const { value, done } = await reader?.read();
-        console.log("value", value);
-        if (done) break;
-        console.log("Received", value);
-      }
-    });
-  }
+export function processingDownloadFileWithFetch(url: string) {
+  fetch(url, {
+    method: "POST",
+  }).then(async (res) => {
+    const reader = res?.body?.getReader();
+    while (true && reader) {
+      const { value, done } = await reader?.read();
+      console.log("value", value);
+      if (done) break;
+      console.log("Received", value);
+    }
+  });
 }
 
 // notes
 
-// let uploaded = 0
-// let buf = new Uint8Array(1024 * 50)
-// let start = Date.now()
-
 // var rs = new ReadableStream({
-//   pull(ctrl) {
+//   pull(controller) {
 //     uploaded += buf.byteLength
 //     console.log('uploaded', uploaded)
 //     crypto.getRandomValues(buf)
-//     ctrl.enqueue(buf)
-//     if ((start + 1000) < Date.now()) ctrl.close()
+//     controller.enqueue(buf)
+//     if ((start + 1000) < Date.now()) controller.close()
 //   }
 // })
 
-// fetch('https://httpbin.org/post', {
+// fetch(url, {
 //   method: 'POST',
 //   body: rs,
 //   duplex: 'half'
